@@ -1,0 +1,164 @@
+.cabecalho {
+    background-color: var(--branco); /*As variáveis globais também funcionam aqui, mesmo que declaradas no outro arquivos styles.css*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /*Libera a opção de colocar outros atributos como top left right bottom*/
+    /*Essas opções liberadas não serão usadas, colocamos position relative apenas para poder posicionar o menu de acordo com a posição do cabeçalho*/
+} /*Sobre positions: https://www.alura.com.br/artigos/entenda-a-propriedade-position-css*/
+
+.cabecalho__menu-hamburger {
+    width: 24px;
+    height: 24px;
+    background-image: url("../assets/Menu.svg"); /*Os dois pontos fazem voltar uma pasta anterior antes*/
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.container__imagem {
+    padding: 1em;
+} /*Sobre unidades responsivas como em: https://www.alura.com.br/artigos/guia-de-unidades-no-css*/
+
+.container__titulo,
+.opcoes,
+.container__texto {
+    display: none;
+}
+
+.lista-menu { /*Essa classe define como será o menu inicialmente*/
+    display: none; /*A princípio ela não aparece*/
+    position: absolute; /*Permite que movimente o elemento de acordo com o pai (cabeçalho), mas o cabeçalho não pode estar estático, e por isso colocamos position: relative nele*/
+    top: 100%; /*Tira 100% do pai (cabeçalho) e posiciona ele para baixo*/
+    width: 60vw;
+} /*Sobre unidades responsivas como vw: https://www.alura.com.br/artigos/guia-de-unidades-no-css*/
+
+.container__botao {
+    display: none; /*Faz com que o checkbox não seja exibido*/
+}
+
+.container__botao:checked~.container__rotulo>.cabecalho__menu-hamburger {
+    background-image: url("../assets/Menu\ Aberto.svg");
+}
+/*~ seleciona todos os elementos após o elemento com a classe especificada anteriormente desde que compartilhem o mesmo pai*/
+/*> seleciona elementos com a classe dentro do elemento com a classe especificada anteriormente*/
+/*+ seleciona o elemento com a classe imediatamente após um elemento qualquer com a classe especificada anteriormente*/
+/*Obs.: os seletores funcionam com marcadores também, não apenas com classes*/
+
+.container__botao:checked~.container__rotulo {
+    background: var(--azul-degrade);
+}
+
+.container__botao:checked~.lista-menu { /*Essa pseudo-classe controla o aparecimento do elemento com a classe lista-menu com base no elemento com a classe container__botao*/
+    display: block; /*Faz o elemento com lista-menu aparecer com a classe block*/
+} /*Combinador de seletores. pseudo-classe que verifica a condição na classe e aplica uma propriedade da classe após o ~*/
+
+.lista-menu__titulo,
+.lista-menu__item {
+    /*margin: 1em; Essa propriedade acrescenta um espaço fora do elemento. Por isso o padding é melhor aqui, pois acrescenta um espaço no próprio elemento, aumentando o espaço ocupado por ele e em torno dele.*/ 
+    padding: 1em;
+    background-color: var(--branco);
+}
+
+.lista-menu__titulo {
+    color: var(--laranja);
+    font-weight: 700;
+}
+
+.lista-menu__link {
+    background: var(--azul-degrade);
+    background-clip: text; /*Aplica a cor de background apenas onde tem texto*/
+    -webkit-background-clip: text; /*-webkit faz com que a propriedade funcione em outros navegadores*/
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: 1024px) {
+
+    .cabecalho__menu-hamburger,
+    .container__imagem-coracao {
+        display: none;
+    }
+    
+    .container__titulo,
+    .container__titulo-negrito {
+        font-family: var(--fonte-secundaria);
+        font-size: 30px;
+    }
+
+    .container__titulo {
+        font-weight: 400;
+        display: block;
+    }
+
+    .container__titulo-negrito {
+        font-weight: 700;
+    }
+
+    .opcoes__botao {
+        display: none;
+    }
+
+    .opcoes__botao:checked~.opcoes__rotulo>.opcoes__item {
+        background: var(--azul-degrade);
+        color: var(--branco);
+    }
+
+    .opcoes__botao:checked~.lista-menu {
+        display: block;
+        width: auto;
+    }
+
+    .lista-menu__item:hover {
+        background: var(--azul-degrade);
+        color: var(--branco);
+    }
+
+    .lista-menu__item:hover>.lista-menu__link {
+        -webkit-text-fill-color: var(--branco);
+        text-decoration: none;
+    }
+
+    .opcoes {
+        display: flex;
+    }
+
+    .opcoes__item {
+        padding: 2em 1em;
+        text-transform: uppercase;
+    }
+
+    .opcoes__link {
+        text-decoration: none;
+        color: var(--preto);
+    }
+
+}
+
+@media screen and (min-width: 1728px) {
+
+    .cabecalho {
+        padding: 0 2em;
+    }
+
+    .opcoes {
+        margin: 0 auto 0 1.5em;
+    }
+
+    .container__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--preto);
+    }
+
+    .container__texto {
+        display: block;
+    }
+
+}
